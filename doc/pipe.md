@@ -22,7 +22,7 @@ step 4：
 Station 调用本地 api 得到结果，将结果返回给 Cloud
 ```
 ### 2.1.1. 远程获取 token
-### 2.1.2. 远程获取 user
+### 2.1.2. 远程获取 device
 
 ## 2.2. WriteDir (formdata)
 Client 远程调用 writedir api
