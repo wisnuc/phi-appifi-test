@@ -5,7 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=test node src/bin/www",
     "dev": "NODE_ENV=test DEBUG='app:*' node_modules/.bin/nodemon --delay 1.5 src/bin/www",
-    "test": "NODE_PATH=. NODE_ENV=test node_modules/.bin/nodemon --ignore out --exec mocha --recursive --sort",
+    "test": "NODE_PATH=. node_modules/.bin/nodemon --ignore out --exec mocha --recursive --sort",
     "unit": "npm run mocha",
     "unit-agent": "NODE_PATH=. NODE_ENV=test node_modules/.bin/nodemon --exec mocha --recursive test/agent"
   },

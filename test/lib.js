@@ -2,11 +2,12 @@ const rp = require('request-promise')
 
 const config = require('../config')
 
-const BASE_URL = config.phicomm.BASE_URL
-const phonenumber = '18817301665'
-const password = 'E10ADC3949BA59ABBE56E057F20F883E'
-const authorizationcode = 'feixun*123.SH_2149773'
-
+const {
+  BASE_URL,
+  phonenumber,
+  password,
+  authorizationcode } = config.phicomm
+  
 module.exports = {
   async getToken() {
     const res = await rp({

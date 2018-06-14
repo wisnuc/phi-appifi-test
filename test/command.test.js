@@ -19,7 +19,6 @@ describe(path.basename(__filename), () => {
   before(async () => {
     token = await lib.getToken()
     const device = await lib.getDevice(token)
-    console.log(device);
     deviceSN = device.deviceSN
   })
 
@@ -37,12 +36,11 @@ describe(path.basename(__filename), () => {
         }
       })
       .end((err, res) => {
+        if (err) return done(err)
         if (res.statusCode === 200) {
           const { error } = JSON.parse(res.text)
-          expect(error === '0')
+          expect(error).to.equal('0')
           done()
-        } else {
-          done(err)
         }
       })
   })
@@ -61,12 +59,11 @@ describe(path.basename(__filename), () => {
         }
       })
       .end((err, res) => {
+        if (err) return done(err)
         if (res.statusCode === 200) {
           const { error } = JSON.parse(res.text)
-          expect(error === '0')
+          expect(error).to.equal('0')
           done()
-        } else {
-          done(err)
         }
       })
   })
@@ -85,13 +82,43 @@ describe(path.basename(__filename), () => {
         }
       })
       .end((err, res) => {
+        if (err) return done(err)
         if (res.statusCode === 200) {
           const { error } = JSON.parse(res.text)
-          expect(error === '0')
+          expect(error).to.equal('0')
           done()
-        } else {
-          done(err)
         }
       })
   })
+
+  it('GET /drives should return success', done => {
+    request
+      .post(url)
+      .set('Authorization', token)
+      .send({
+        deviceSN: deviceSN,
+        data: {
+          verb: 'GET',
+          urlPath: '/drives',
+          params: {},
+          body: {}
+        }
+      })
+      .end((err, res) => {
+        if (err) return done(err)
+        if (res.statusCode === 200) {
+          // const result = JSON.parse(res.text).result.data.res
+          const { error, result } = JSON.parse(res.text)
+          expect(error).to.equal('0')
+          const data = result.data.res
+          for (const d of data) {
+            if (d.type === 'private') {
+              console.log(d.uuid);
+            }
+          }
+          done()
+        }
+      })
+  })
+
 })
