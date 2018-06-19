@@ -1,5 +1,5 @@
 const rp = require('request-promise')
-
+const debug = require('debug')('app:lib')
 const config = require('../config')
 
 const {
@@ -7,7 +7,7 @@ const {
   phonenumber,
   password,
   authorizationcode } = config.phicomm
-  
+
 module.exports = {
   async getToken() {
     const res = await rp({
@@ -34,6 +34,7 @@ module.exports = {
       headers: { authorization: token }
     })
     const data = JSON.parse(res)
+    debug('get device: ', data)
     const devices = data.result.list
     for (const device of devices) {
       if (device.onlineStatus === 'online') {
